@@ -1,4 +1,13 @@
-import { nextJsConfig } from "@repo/eslint-config/next-js";
+import tanstackConfig from "@repo/eslint-config/tanstack";
+import baseConfig, { restrictEnvAccess } from "@repo/eslint-config/base";
+import reactConfig from "@repo/eslint-config/react";
 
-/** @type {import("eslint").Linter.Config} */
-export default nextJsConfig;
+export default [
+    {
+        ignores: [".output/**", ".vinxi/**"],
+    },
+    ...baseConfig,
+    ...reactConfig,
+    ...tanstackConfig,
+    ...restrictEnvAccess
+];
