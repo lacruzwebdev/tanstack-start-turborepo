@@ -1,22 +1,38 @@
-import reactPlugin from "eslint-plugin-react";
-import * as reactHooks from "eslint-plugin-react-hooks";
+import js from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import tseslint from 'typescript-eslint';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+import pluginReact from 'eslint-plugin-react';
+import globals from 'globals';
+import baseConfig from './base.js';
 
-/** @type {Awaited<import('typescript-eslint').Config>} */
-export default [
-  reactHooks.configs.recommended,
+export default tseslint.config([
+  ...baseConfig,
+  js.configs.recommended,
+  eslintConfigPrettier,
+  ...tseslint.configs.recommended,
+  pluginReact.configs.flat.recommended,
   {
-    files: ["**/*.ts", "**/*.tsx"],
-    plugins: {
-      react: reactPlugin,
-    },
-    rules: {
-      ...reactPlugin.configs["jsx-runtime"].rules,
-      "react-hooks/react-compiler": "error",
-    },
     languageOptions: {
+      ...pluginReact.configs.flat.recommended.languageOptions,
       globals: {
-        React: "writable",
+        ...globals.serviceworker,
+        ...globals.browser,
       },
     },
   },
-];
+  {
+    plugins: {
+      'react-hooks': pluginReactHooks,
+    },
+    settings: { react: { version: 'detect' } },
+    rules: {
+      ...pluginReactHooks.configs.recommended.rules,
+      // React scope no longer necessary with new JSX transform.
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+      'react/no-children-prop': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+]);

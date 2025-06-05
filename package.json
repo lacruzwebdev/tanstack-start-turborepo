@@ -6,7 +6,9 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "typecheck": "turbo run typecheck",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "ui-add": "turbo run ui-add -F @repo/ui --"
   },
   "devDependencies": {
     "prettier": "^3.5.3",
