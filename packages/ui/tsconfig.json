@@ -1,0 +1,17 @@
+{
+  "extends": "@repo/typescript-config/internal-package.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "lib": ["ES2022", "dom", "dom.iterable"],
+    "jsx": "preserve",
+    "paths": {
+      "#/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
